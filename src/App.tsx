@@ -9,8 +9,6 @@ import "./App.css";
 
 const { Title, Text } = Typography;
 
-
-
 function App() {
   const targetDate = dayjs("2025-03-01");
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -127,9 +125,6 @@ function App() {
 
   return (
     <>
-      {isPlaying && (
-
-      )}
       <div className="container">
         <audio
           ref={audioRef}
