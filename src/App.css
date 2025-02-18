@@ -95,6 +95,20 @@ html {
   margin-bottom: 1.5rem !important;
 }
 
+.hero-text {
+  font-size: 2rem !important;
+  font-weight: bold !important;
+  color: #ffd700 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  margin-top: 2rem !important;
+  padding: 1rem !important;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.3)
+  ) !important;
+  border-radius: 8px !important;
+}
+
 /* Typed.js cursor styling */
 .typed-cursor {
   color: #1890ff !important;

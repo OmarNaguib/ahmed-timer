@@ -22,8 +22,12 @@ function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const typedRef1 = useRef<HTMLSpanElement>(null);
   const typedRef2 = useRef<HTMLSpanElement>(null);
+  const typedRef3 = useRef<HTMLSpanElement>(null);
+  const typedRef4 = useRef<HTMLSpanElement>(null);
   const typedInstance1 = useRef<Typed | null>(null);
   const typedInstance2 = useRef<Typed | null>(null);
+  const typedInstance3 = useRef<Typed | null>(null);
+  const typedInstance4 = useRef<Typed | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStory, setShowStory] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
@@ -34,24 +38,49 @@ function App() {
   });
 
   const startTyping = () => {
-    if (typedRef1.current && typedRef2.current) {
+    if (
+      typedRef1.current &&
+      typedRef2.current &&
+      typedRef3.current &&
+      typedRef4.current
+    ) {
       // Initialize first paragraph
       typedInstance1.current = new Typed(typedRef1.current, {
         strings: [
-          "أدى حمدي خدمته العسكرية في العام 2016، وهو الآن على قوة الاحتياط جنديا عسكريا غير مستدعى وينتظر على أهبة الاسعداد لتلبية نداء الواجب.",
+          "أدى حمدي خدمته العسكرية في عام 2016، وهو الآن على قوة الاحتياط جنديا عسكريا غير مستدعى وينتظر على أهبة الاستعداد لتلبية نداء الواجب.",
         ],
         typeSpeed: 50,
         showCursor: true,
         cursorChar: "|",
         onComplete: () => {
-          // Start second paragraph after first one completes
+          // Start second paragraph
           typedInstance2.current = new Typed(typedRef2.current, {
             strings: [
-              "كان حمدي من النخبة المختارة في عملية تنقيب أرض سيناء الشريفة من الألغام التي تم زرعها من قبل العدو اللدود لمصرنا الحبيبة، وأصيب حمدي بشظايا لكن بمهارة راوغ طلقات العدو مستبسلا في الأرض المعركة ليقضي على العناصر الوحشة.",
+              "تنتهي خدمة البطل حمدي في يوم السبت الموافق 1/3/2025 ونحتفل في تلك المناسبة بمسيرته البطولية والحافلة بمزيج من الفداء والحماس.",
             ],
             typeSpeed: 50,
             showCursor: true,
             cursorChar: "|",
+            onComplete: () => {
+              // Start third paragraph
+              typedInstance3.current = new Typed(typedRef3.current, {
+                strings: [
+                  "كان حمدي من النخبة المختارة في عملية تنقيب أرض سيناء الشريفة من الألغام التي تم زرعها من قبل العدو اللدود لمصرنا الحبيبة، وأصيب حمدي بشظايا لكن بمهارة راوغ طلقات العدو مستبسلا في أرض المعركة ليقضي على العناصر الوحشة.",
+                ],
+                typeSpeed: 50,
+                showCursor: true,
+                cursorChar: "|",
+                onComplete: () => {
+                  // Start fourth paragraph (special styling)
+                  typedInstance4.current = new Typed(typedRef4.current, {
+                    strings: ["حمدي...بطل ولد من رحم المعاناة"],
+                    typeSpeed: 70,
+                    showCursor: true,
+                    cursorChar: "|",
+                  });
+                },
+              });
+            },
           });
         },
       });
@@ -61,6 +90,8 @@ function App() {
   const stopTyping = () => {
     typedInstance1.current?.destroy();
     typedInstance2.current?.destroy();
+    typedInstance3.current?.destroy();
+    typedInstance4.current?.destroy();
   };
 
   const togglePlay = () => {
@@ -169,6 +200,18 @@ function App() {
                   style={{ direction: "rtl", textAlign: "right" }}
                 >
                   <span ref={typedRef2}></span>
+                </div>
+                <div
+                  className="story-text"
+                  style={{ direction: "rtl", textAlign: "right" }}
+                >
+                  <span ref={typedRef3}></span>
+                </div>
+                <div
+                  className="story-text hero-text"
+                  style={{ direction: "rtl", textAlign: "center" }}
+                >
+                  <span ref={typedRef4}></span>
                 </div>
               </div>
             )}
