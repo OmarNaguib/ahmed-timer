@@ -3,7 +3,31 @@ html {
   justify-content: center;
   align-items: center;
 }
+
+.particles-container {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#tsparticles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 .container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
@@ -12,6 +36,88 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@keyframes storyReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    filter: blur(10px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.content-row {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.military-story {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease-out forwards;
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.story-text {
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  line-height: 1.8 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Typed.js cursor styling */
+.typed-cursor {
+  color: #1890ff !important;
+  font-size: 1.2rem;
+  opacity: 1;
+  animation: blink 0.7s infinite;
+  margin-right: 0.2rem;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.story-text:nth-child(2) {
+  animation-delay: 1s;
 }
 
 .audio-button {
@@ -23,10 +129,23 @@ html {
 }
 
 .meme-image {
-  max-width: 100%;
-  height: auto;
+  height: 400px;
+  width: auto;
+  object-fit: contain;
   border-radius: 8px;
   margin-bottom: 2rem;
+  animation: fadeInScale 0.5s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .title {
