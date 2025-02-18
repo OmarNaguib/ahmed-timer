@@ -3,12 +3,27 @@ import { Typography, Card, Space, Button } from "antd";
 import { SoundOutlined, PauseOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import Typed from "typed.js";
-import Confetti from "react-confetti";
 import aloehSound from "./assets/aloeh.mp3";
 import sa3ka2Image from "./assets/sa3ka2.jpg";
 import "./App.css";
 
 const { Title, Text } = Typography;
+
+const FloatingImage = ({ index }: { index: number }) => (
+  <img
+    src={sa3ka2Image}
+    alt=""
+    className={`floating-window floating-${index + 1}`}
+    style={{
+      position: "fixed",
+      width: "100px",
+      height: "100px",
+      objectFit: "contain",
+      pointerEvents: "none",
+      zIndex: -1,
+    }}
+  />
+);
 
 function App() {
   const targetDate = dayjs("2025-03-01");
@@ -19,10 +34,6 @@ function App() {
   const typedInstance2 = useRef<Typed | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStory, setShowStory] = useState(false);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -112,20 +123,11 @@ function App() {
   return (
     <>
       {isPlaying && (
-        <Confetti
-          width={windowSize.width}
-          height={windowSize.height}
-          numberOfPieces={8}
-          confettiSource={{ x: 0, y: 0, w: windowSize.width, h: 0 }}
-          initialVelocityY={3}
-          gravity={0.1}
-          wind={0.05}
-          drawShape={(ctx) => {
-            const img = new Image();
-            img.src = sa3ka2Image;
-            ctx.drawImage(img, 0, 0, 50, 50);
-          }}
-        />
+        <div className="floating-container">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <FloatingImage key={index} index={index} />
+          ))}
+        </div>
       )}
       <div className="container">
         <audio
@@ -135,6 +137,29 @@ function App() {
           onEnded={() => setIsPlaying(false)}
         />
         <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          <Title level={2} className="title">
+            Freedom Countdown
+          </Title>
+          <Card className="timer-card">
+            <Space size="large" className="timer-display">
+              <div className="time-block">
+                <Text className="time-value">{timeLeft.days}</Text>
+                <Text className="time-label">Days</Text>
+              </div>
+              <div className="time-block">
+                <Text className="time-value">{timeLeft.hours}</Text>
+                <Text className="time-label">Hours</Text>
+              </div>
+              <div className="time-block">
+                <Text className="time-value">{timeLeft.minutes}</Text>
+                <Text className="time-label">Minutes</Text>
+              </div>
+              <div className="time-block">
+                <Text className="time-value">{timeLeft.seconds}</Text>
+                <Text className="time-label">Seconds</Text>
+              </div>
+            </Space>
+          </Card>
           <Button
             type="primary"
             icon={isPlaying ? <PauseOutlined /> : <SoundOutlined />}
@@ -168,29 +193,6 @@ function App() {
               </div>
             )}
           </div>
-          <Title level={2} className="title">
-            Freedom Countdown
-          </Title>
-          <Card className="timer-card">
-            <Space size="large" className="timer-display">
-              <div className="time-block">
-                <Text className="time-value">{timeLeft.days}</Text>
-                <Text className="time-label">Days</Text>
-              </div>
-              <div className="time-block">
-                <Text className="time-value">{timeLeft.hours}</Text>
-                <Text className="time-label">Hours</Text>
-              </div>
-              <div className="time-block">
-                <Text className="time-value">{timeLeft.minutes}</Text>
-                <Text className="time-label">Minutes</Text>
-              </div>
-              <div className="time-block">
-                <Text className="time-value">{timeLeft.seconds}</Text>
-                <Text className="time-label">Seconds</Text>
-              </div>
-            </Space>
-          </Card>
         </Space>
       </div>
     </>
