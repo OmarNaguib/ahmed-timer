@@ -220,7 +220,7 @@ html {
 
 @keyframes float {
   0% {
-    transform: translate(0, 120vh) scale(0.5);
+    transform: translate(-50vw, 120vh) scale(0.5);
     opacity: 0;
   }
   5% {

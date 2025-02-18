@@ -9,13 +9,7 @@ import "./App.css";
 
 const { Title, Text } = Typography;
 
-const FloatingImage = ({ index }: { index: number }) => (
-  <img
-    src={sa3ka2Image}
-    alt=""
-    className={`floating-window floating-${index + 1}`}
-  />
-);
+
 
 function App() {
   const targetDate = dayjs("2025-03-01");
@@ -134,11 +128,7 @@ function App() {
   return (
     <>
       {isPlaying && (
-        <div className="floating-container">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <FloatingImage key={index} index={index} />
-          ))}
-        </div>
+
       )}
       <div className="container">
         <audio
