@@ -14,14 +14,6 @@ const FloatingImage = ({ index }: { index: number }) => (
     src={sa3ka2Image}
     alt=""
     className={`floating-window floating-${index + 1}`}
-    style={{
-      position: "fixed",
-      width: "100px",
-      height: "100px",
-      objectFit: "contain",
-      pointerEvents: "none",
-      zIndex: -1,
-    }}
   />
 );
 
@@ -40,18 +32,6 @@ function App() {
     minutes: 0,
     seconds: 0,
   });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const startTyping = () => {
     if (typedRef1.current && typedRef2.current) {
