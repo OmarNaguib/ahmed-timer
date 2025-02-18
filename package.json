@@ -14,9 +14,8 @@
     "antd": "^5.24.1",
     "dayjs": "^1.11.13",
     "react": "^19.0.0",
+    "react-confetti": "^6.2.2",
     "react-dom": "^19.0.0",
-    "react-tsparticles": "^2.12.2",
-    "tsparticles": "^3.8.1",
     "typed.js": "^2.1.0"
   },
   "devDependencies": {

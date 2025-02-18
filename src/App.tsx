@@ -3,10 +3,7 @@ import { Typography, Card, Space, Button } from "antd";
 import { SoundOutlined, PauseOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import Typed from "typed.js";
-import { Particles } from "react-tsparticles";
-import { loadFull } from "tsparticles";
-import type { Engine } from "tsparticles-engine";
-import type { ISourceOptions } from "tsparticles-engine";
+import Confetti from "react-confetti";
 import aloehSound from "./assets/aloeh.mp3";
 import sa3ka2Image from "./assets/sa3ka2.jpg";
 import "./App.css";
@@ -22,6 +19,10 @@ function App() {
   const typedInstance2 = useRef<Typed | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStory, setShowStory] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -29,75 +30,17 @@ function App() {
     seconds: 0,
   });
 
-  const particlesInit = async (engine: Engine) => {
-    await loadFull(engine);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
 
-  const particlesConfig: ISourceOptions = {
-    fpsLimit: 60,
-    particles: {
-      number: {
-        value: 8,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      shape: {
-        type: "image",
-        image: [
-          {
-            src: sa3ka2Image,
-            width: 100,
-            height: 100,
-          },
-        ],
-      },
-      opacity: {
-        value: 0.7,
-        random: true,
-        animation: {
-          enable: true,
-          speed: 1,
-          minimumValue: 0.1,
-          sync: false,
-        },
-      },
-      size: {
-        value: 50,
-        random: true,
-        animation: {
-          enable: true,
-          speed: 4,
-          minimumValue: 30,
-          sync: false,
-        },
-      },
-      move: {
-        enable: true,
-        speed: 2,
-        direction: "none",
-        random: true,
-        straight: false,
-        outModes: "out",
-        bounce: false,
-      },
-    },
-    interactivity: {
-      events: {
-        onHover: {
-          enable: true,
-          mode: "repulse",
-        },
-        resize: true,
-      },
-    },
-    background: {
-      color: {
-        value: "transparent",
-      },
-    },
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const startTyping = () => {
     if (typedRef1.current && typedRef2.current) {
@@ -169,11 +112,19 @@ function App() {
   return (
     <>
       {isPlaying && (
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={particlesConfig}
-          className="particles-container"
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          numberOfPieces={8}
+          confettiSource={{ x: 0, y: 0, w: windowSize.width, h: 0 }}
+          initialVelocityY={3}
+          gravity={0.1}
+          wind={0.05}
+          drawShape={(ctx) => {
+            const img = new Image();
+            img.src = sa3ka2Image;
+            ctx.drawImage(img, 0, 0, 50, 50);
+          }}
         />
       )}
       <div className="container">
